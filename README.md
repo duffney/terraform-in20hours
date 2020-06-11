@@ -1,6 +1,8 @@
 # terraform-in20hours
 Learning Terraform in 20 Hours
 
+Outcome: Create windows & linux vm, sql instance, and app gateway 
+
 
 1. Install Terraform in a Docker container
 
