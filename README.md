@@ -22,10 +22,23 @@ docker build -t terraform .
 
     `terraform init`
 
+Commands
+
+```
+terrafrom init
+
+terraform plan
+
+terraform apply
+
+terraform destroy
+```
 
 
 
 ## resources
+
+https://docs.microsoft.com/en-us/azure/developer/terraform/create-linux-virtual-machine-with-infrastructure
 
 https://phoenixnap.com/kb/how-to-install-terraform-centos-ubuntu
 

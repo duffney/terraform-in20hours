@@ -30,6 +30,39 @@ resource "azurerm_subnet" "internal" {
   address_prefixes     = ["10.0.2.0/24"]
 }
 
+resource "azurerm_public_ip" "main" {
+  name                = "${var.prefix}-pip"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  allocation_method   = "Dynamic"
+
+  tags = {
+    environment = "Terraform"
+  }
+}
+
+resource "azurerm_network_security_group" "main" {
+    name                = "${var.prefix}-nsg"
+    location            = "West US 2"
+    resource_group_name = azurerm_resource_group.main.name
+    
+    security_rule {
+        name                       = "SSH"
+        priority                   = 1001
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "22"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+    }
+
+    tags = {
+        environment = "Terraform"
+    }
+}
+
 resource "azurerm_network_interface" "main" {
   name                = "${var.prefix}-nic"
   location            = azurerm_resource_group.main.location
@@ -39,18 +72,13 @@ resource "azurerm_network_interface" "main" {
     name                          = "testconfiguration1"
     subnet_id                     = azurerm_subnet.internal.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id = azurerm_public_ip.main.id
   }
 }
 
-resource "azurerm_public_ip" "main" {
-  name                = "acceptanceTestPublicIp1"
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
-  allocation_method   = "Static"
-  ip_version = "IPV4"
-  tags = {
-    environment = "Terraform"
-  }
+resource "azurerm_network_interface_security_group_association" "main" {
+    network_interface_id      = azurerm_network_interface.main.id
+    network_security_group_id = azurerm_network_security_group.main.id
 }
 
 resource "azurerm_virtual_machine" "main" {
