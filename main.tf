@@ -4,6 +4,10 @@ provider "azurerm" {
   #subscription_id = ""
 }
 
+locals {
+  prefex = "tfvm"
+}
+
 variable "prefix" {
   default = "tfvm"
 }
