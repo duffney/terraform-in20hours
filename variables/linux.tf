@@ -54,7 +54,7 @@ resource "azurerm_virtual_machine" "linux" {
   location              = azurerm_resource_group.main.location
   resource_group_name   = azurerm_resource_group.main.name
   network_interface_ids = [azurerm_network_interface.linux.id]
-  vm_size               = "Standard_DS1_v2"
+  vm_size               = lookup(var.vmsize, var.env)
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   delete_os_disk_on_termination = true
