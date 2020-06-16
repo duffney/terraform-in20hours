@@ -63,10 +63,10 @@ resource "azurerm_virtual_machine" "linux" {
   delete_data_disks_on_termination = true
 
   storage_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
-    version   = "latest"
+    publisher = var.os.publisher
+    offer     = var.os.offer
+    sku       = var.os.sku
+    version   = var.os.version
   }
   storage_os_disk {
     name              = "myosdisk1"

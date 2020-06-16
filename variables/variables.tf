@@ -16,6 +16,7 @@ variable "password" {
 variable "env" {
   type = string
   description = "type of environment"
+  default = "dev"
 }
 
 variable "vmsize" {
@@ -24,4 +25,14 @@ variable "vmsize" {
     dev = "Standard_DS1_v2"
     prod = "Standard_D2_v2"
   }
+}
+
+variable "os" {
+    description = "OS image to deploy"
+    type = object({
+        publisher = string
+        offer = string
+        sku = string
+        version = string
+  })
 }
