@@ -2,7 +2,8 @@ resource "azurerm_public_ip" "linux" {
   name                = "${var.prefix}-pip"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
-  allocation_method   = "Dynamic"
+  #NOTE: Had to switch to static because dynamic isn't allocated until attached to a vm and caused provisoner to fail as it didn't have a IP.
+  allocation_method   = "Static"
 
   tags = {
     environment = "Terraform"
@@ -85,4 +86,31 @@ resource "azurerm_virtual_machine" "linux" {
   tags = {
     environment = "staging"
   }
+
+  provisioner "local-exec" {
+    command = "echo 'local provisioner worked'"
+  }
+
+
+  #TODO: try changing ip to static instead of dynamic
+  provisioner "remote-exec" {
+    inline = [
+      "echo 'remote provisioner worked'"
+    ]
+    connection {
+      type     = "ssh"
+      user     = "tfadmin"
+      password = "Password1234!"
+      host     =  azurerm_public_ip.linux.ip_address
+    }
+  }
 }
+
+# data "azurerm_public_ip" "linux" {
+#   name                = azurerm_public_ip.linux.name
+#   resource_group_name = azurerm_resource_group.main.name
+# }
+
+# output "public_ip_address" {
+#   value = data.azurerm_public_ip.linux.ip_address
+# }

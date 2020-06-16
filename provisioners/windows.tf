@@ -2,7 +2,7 @@ resource "azurerm_public_ip" "windows" {
   name                = "${var.prefix}-winpip"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 
   tags = {
     environment = "Terraform"
@@ -38,7 +38,19 @@ resource "azurerm_network_security_group" "windows" {
         destination_port_range     = "3389"
         source_address_prefix      = "*"
         destination_address_prefix = "*"
-    }
+      }
+
+    security_rule {
+        name                       = "winrm"
+        priority                   = 1002
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "5985"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+      }
 
     tags = {
         environment = "Terraform"
@@ -86,4 +98,22 @@ resource "azurerm_virtual_machine" "windows" {
   tags = {
     environment = "staging"
   }
+
+  provisioner "remote-exec" {
+    inline = [
+      "Write-Host 'remote provisioner worked'"
+    ]
+    connection {
+      type     = "winrm"
+      user     = "tfadmin"
+      password = "Password1234!"
+      host     =  azurerm_public_ip.windows.ip_address
+      insecure = "true"
+      https = false
+      #use_ntlm = "true"
+    }
+  }
 }
+
+#issue is vm image provisoning
+#https://www.starwindsoftware.com/blog/azure-execute-commands-in-a-vm-through-terraform

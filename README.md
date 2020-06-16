@@ -34,9 +34,34 @@ terraform plan
 terraform apply
 
 terraform destroy
+
+#use for developing without having to create new dir and copy stuff +100
+terraform workspace new $(workspaceName) 
 ```
 
+## Variables
 
+.terraform.tfvars
+```
+variable "admin_password" {
+    type = string
+    description = "admin password"
+}
+```
+
+### Terraform apply -var
+
+```
+terraform apply -var="admin_password=Password1234!"
+```
+
+### Environment Variables
+
+You can populate variables by exporting environment variables `TF_VAR_$(variableName)`
+
+```
+export TF_VAR_admin_password=Password1234!
+```
 
 ## resources
 
