@@ -49,6 +49,24 @@ variable "admin_password" {
 }
 ```
 
+manual prompts
+
+```
+terraform apply
+```
+
+terraform -var option
+```
+terraform apply -var 'password=<Password>'
+```
+
+terraform variables file
+
+.terraform.tfvars
+```
+username = "tfadmin2"
+```
+
 ### Terraform apply -var
 
 ```
