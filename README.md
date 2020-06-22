@@ -37,6 +37,9 @@ terraform destroy
 
 #use for developing without having to create new dir and copy stuff +100
 terraform workspace new $(workspaceName) 
+
+#test terraform commands!
+terraform console 
 ```
 
 ## Variables
