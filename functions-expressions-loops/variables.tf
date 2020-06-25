@@ -1,6 +1,6 @@
 variable "prefix" {
   type = string
-  default = "tf-ag"
+  default = "tf"
 }
 
 variable "computer_name" {

@@ -91,3 +91,5 @@ https://docs.microsoft.com/en-us/azure/developer/terraform/create-linux-virtual-
 https://phoenixnap.com/kb/how-to-install-terraform-centos-ubuntu
 
 https://stackoverflow.com/questions/41485217/mount-current-directory-as-a-volume-in-docker-on-windows-10
+
+https://stackoverflow.com/questions/40542297/need-to-create-multile-vms-in-azure-through-terraform
