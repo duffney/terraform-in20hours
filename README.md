@@ -93,3 +93,11 @@ https://phoenixnap.com/kb/how-to-install-terraform-centos-ubuntu
 https://stackoverflow.com/questions/41485217/mount-current-directory-as-a-volume-in-docker-on-windows-10
 
 https://stackoverflow.com/questions/40542297/need-to-create-multile-vms-in-azure-through-terraform
+
+## influences & books
+
+https://www.terraformupandrunning.com/
+
+https://learn.hashicorp.com/terraform
+
+https://portal.cloudskills.io/terraform-azure
