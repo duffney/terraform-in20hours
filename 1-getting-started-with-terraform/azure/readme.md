@@ -4,9 +4,12 @@
 
 ---
 
-prerequisite
+**Prerequisites**
 
 * [Azure Account](https://azure.microsoft.com/en-us/free/)
+* [PowerShell 7](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7)
+
+> Note: All code examples are from a PowerShell prompt
 
 ---
 

@@ -108,3 +108,7 @@ resource "azurerm_linux_virtual_machine" "example" {
       Name = "terraform-example"
   }
 }
+
+output "public_ip" {
+  value = azurerm_public_ip.example-lb.ip_address
+}
